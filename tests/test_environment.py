@@ -32,20 +32,3 @@ class TestEnvironment(unittest.TestCase):
     reward = env.act(0, 0)
     while reward != env.OUT_OF_BOUNDS_REWARD:
       reward = env.act(0, 0)
-
-  def test_eventual_finish(self):
-
-    env = environment.Racetrack(racetracks.TRACK_1)
-
-    env.act(0, 1)
-
-    done = False
-
-    for i in range(10000):
-      env.act(0, 0)
-      print(env.position)
-      if env.done:
-        done = True
-        break
-
-    self.assertTrue(done)
