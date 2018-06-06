@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class Racetrack:
@@ -145,3 +146,8 @@ class Racetrack:
     self.position = random.choice(self.start_coordinates)
     self.velocity = (0, 0)
     self.done = False
+
+  def show_racetrack(self):
+
+    plt.imshow(self.racetrack)
+    plt.show()
