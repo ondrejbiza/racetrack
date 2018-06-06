@@ -11,7 +11,7 @@ class Racetrack:
   END_VALUE = 3
 
   STEP_REWARD = -1
-  OUT_OF_BOUNDS_REWARD = -5
+  OUT_OF_BOUNDS_REWARD = -50
 
   def __init__(self, racetrack):
     """
