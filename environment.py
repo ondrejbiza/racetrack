@@ -82,7 +82,6 @@ class Racetrack:
     Check if the race car reached finish.
     :return:      None.
     """
-
     tmp_position = self.position
 
     if self.position[1] < 0:
@@ -116,9 +115,9 @@ class Racetrack:
     # make sure the velocity is not 0
     if self.velocity == (0, 0):
       if random.choice([True, False]):
-        self.velocity = (self.velocity[0] + 1, self.velocity[1])
+        self.velocity = (1, 0)
       else:
-        self.velocity = (self.velocity[0], self.velocity[1] + 1)
+        self.velocity = (0, 1)
 
   def check_position_out_of_bounds(self):
     """
@@ -154,4 +153,4 @@ class Racetrack:
 
   def get_state(self):
 
-    return (self.position[0], self.position[1], self.velocity[0], self.velocity[1])
+    return self.position[0], self.position[1], self.velocity[0], self.velocity[1]

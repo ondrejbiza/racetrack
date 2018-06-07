@@ -9,7 +9,7 @@ EVALUATION_FREQUENCY = 100
 
 
 env = environment.Racetrack(racetracks.TRACK_1)
-mc = agent.MonteCarlo(env, 0.1)
+mc = agent.MonteCarlo(env, 0.5)
 
 max_ret = None
 
@@ -33,3 +33,5 @@ for i in range(TRAINING_EPISODES):
 
     total_return = np.mean(returns)
     print("return after {:d} episodes: {:.2f}".format(i, total_return))
+
+#mc.show_policy()

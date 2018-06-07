@@ -21,7 +21,7 @@ class TestEnvironment(unittest.TestCase):
     self.assertEqual(env.act(-1, 1), -1)
 
     while not env.done:
-      self.assertEqual(env.act(0, 0), -1)
+      self.assertEqual(env.act(0, 1), -1)
 
   def test_collision(self):
 

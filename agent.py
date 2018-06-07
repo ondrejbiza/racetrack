@@ -1,12 +1,13 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import utils
 
 
 class MonteCarlo:
 
-  NUM_ACTIONS = 3 * 3
-  ACTION_TO_ACCELERATION = np.array([[-1, -1], [0, -1], [1, -1], [-1, 0], [0, 0], [1, 0], [-1, 1], [0, 1], [1, 1]])
+  NUM_ACTIONS = 9
   NUM_SPEEDS = 5
+  ACTION_TO_ACCELERATION = np.array([[1, 1], [0, 1], [1, 0], [0, 0], [-1, 0], [0, -1], [1, -1], [-1, 1], [-1, -1]])
 
   def __init__(self, env, epsilon):
     """
@@ -50,9 +51,7 @@ class MonteCarlo:
     returns = np.zeros(len(sequence))
 
     for i in reversed(range(len(sequence))):
-
       for j in range(i + 1):
-
         returns[j] += sequence[i][2]
 
     if learn:
@@ -108,3 +107,11 @@ class MonteCarlo:
       return np.random.randint(0, self.NUM_ACTIONS)
     else:
       return action
+
+  def show_policy(self):
+
+    for i in range(self.NUM_SPEEDS):
+      for j in range(self.NUM_SPEEDS):
+        plt.imshow(self.policy[:, :, i, i])
+        plt.colorbar()
+        plt.show()
