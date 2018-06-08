@@ -3,13 +3,13 @@ import agent, environment, racetracks
 
 
 SOLVE_RETURN = -12
-TRAINING_EPISODES = 100000
+TRAINING_EPISODES = 500000
 EVALUATION_EPISODES = 10
-EVALUATION_FREQUENCY = 100
+EVALUATION_FREQUENCY = 10000
 
 
 env = environment.Racetrack(racetracks.TRACK_1)
-mc = agent.MonteCarlo(env, 0.5)
+mc = agent.MonteCarlo(env, 1.0)
 
 max_ret = None
 
@@ -26,7 +26,7 @@ for i in range(TRAINING_EPISODES):
 
     for j in range(EVALUATION_EPISODES):
 
-      ret = mc.play_episode(explore=False, learn=False)
+      ret, _ = mc.play_episode(explore=False, learn=False)
       returns.append(ret)
 
       env.reset()
@@ -34,4 +34,12 @@ for i in range(TRAINING_EPISODES):
     total_return = np.mean(returns)
     print("return after {:d} episodes: {:.2f}".format(i, total_return))
 
-#mc.show_policy()
+for i in range(10):
+
+  ret, seq = mc.play_episode(explore=False, learn=False)
+  print("return", ret)
+  mc.show_sequence(seq)
+  env.reset()
+
+mc.show_fraction_explored()
+mc.show_max_action_values()

@@ -9,16 +9,18 @@ class MonteCarlo:
   NUM_SPEEDS = 5
   ACTION_TO_ACCELERATION = np.array([[1, 1], [0, 1], [1, 0], [0, 0], [-1, 0], [0, -1], [1, -1], [-1, 1], [-1, -1]])
 
-  def __init__(self, env, epsilon):
+  def __init__(self, env, epsilon, init=-100):
     """
     Initialize a Monte Carlo agent for the Racetrack environment.
     Each state is visited only once in a single episode, so the first-visit / every-visit distinction does not apply.
     :param env:         An instance of the racetrack environment.
     :param epsilon:     Constant for an epsilon-greedy policy.
+    :param init:        Initial action values.
     """
 
     self.env = env
     self.epsilon = epsilon
+    self.init = init
 
     self.action_values = None
     self.action_counts = None
@@ -66,7 +68,7 @@ class MonteCarlo:
                                                               self.action_counts[state_action])
         self.action_counts[state_action] += 1
 
-    return returns[0]
+    return returns[0], sequence
 
   def reset(self):
     """
@@ -76,7 +78,7 @@ class MonteCarlo:
 
     self.action_values = \
       np.zeros((self.env.racetrack.shape[0], self.env.racetrack.shape[1], self.NUM_SPEEDS, self.NUM_SPEEDS,
-                self.NUM_ACTIONS), dtype=np.float32)
+                self.NUM_ACTIONS), dtype=np.float32) - self.init
     self.action_counts = \
       np.zeros((self.env.racetrack.shape[0], self.env.racetrack.shape[1], self.NUM_SPEEDS, self.NUM_SPEEDS,
                 self.NUM_ACTIONS), dtype=np.int32)
@@ -112,6 +114,48 @@ class MonteCarlo:
 
     for i in range(self.NUM_SPEEDS):
       for j in range(self.NUM_SPEEDS):
-        plt.imshow(self.policy[:, :, i, i])
+        plt.title("policies for velocity {:d} {:d}".format(i, j))
+        plt.imshow(self.policy[:, :, i, j])
         plt.colorbar()
         plt.show()
+
+  def show_fraction_explored(self):
+    """
+    Show fraction of state-actions that were visited for each position.
+    :return:      None.
+    """
+
+    mask = self.action_counts != 0
+    fracts = np.mean(mask, axis=(2, 3, 4))
+
+    plt.imshow(fracts)
+    plt.colorbar()
+    plt.show()
+
+  def show_max_action_values(self):
+    """
+    Show maximum action values
+    :return:
+    """
+
+    img = np.max(self.action_values, axis=(2, 3, 4))
+
+    plt.imshow(img)
+    plt.colorbar()
+    plt.show()
+
+  def show_sequence(self, sequence):
+    """
+    Show positions visited in a sequence.
+    :param sequence:    Sequence of tuples: (state, action, reward).
+    :return:            None.
+    """
+
+    track = self.env.racetrack.copy()
+
+    for item in sequence:
+      state = item[0]
+      track[state[0], state[1]] = 4
+
+    plt.imshow(track)
+    plt.show()

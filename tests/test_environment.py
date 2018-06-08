@@ -27,8 +27,15 @@ class TestEnvironment(unittest.TestCase):
 
     env = environment.Racetrack(racetracks.TRACK_1)
 
-    self.assertEqual(env.act(1, 1), -1)
-
-    reward = env.act(0, 0)
+    reward = env.act(1, 1)
     while reward != env.OUT_OF_BOUNDS_REWARD:
       reward = env.act(0, 0)
+
+  def test_check_finish(self):
+
+    env = environment.Racetrack(racetracks.TRACK_1)
+
+    for i in range(5):
+      for j in range(3):
+        env.position = (i, racetracks.TRACK_1.shape[1] + j)
+        self.assertEqual(env.check_finish(), True)

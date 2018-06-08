@@ -11,7 +11,7 @@ class Racetrack:
   END_VALUE = 3
 
   STEP_REWARD = -1
-  OUT_OF_BOUNDS_REWARD = -50
+  OUT_OF_BOUNDS_REWARD = -10000
 
   def __init__(self, racetrack):
     """
@@ -83,6 +83,9 @@ class Racetrack:
     :return:      None.
     """
     tmp_position = self.position
+
+    if self.position[0] < 0 or self.position[0] >= self.racetrack.shape[0]:
+      return False
 
     if self.position[1] < 0:
       tmp_position = (self.position[0], 0)
