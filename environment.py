@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class Racetrack:
+class RacetrackStrict:
 
   TRACK_VALUE = 0
   GRASS_VALUE = 1
@@ -11,7 +11,7 @@ class Racetrack:
   END_VALUE = 3
 
   STEP_REWARD = -1
-  OUT_OF_BOUNDS_REWARD = -10000
+  OUT_OF_BOUNDS_REWARD = -50
 
   def __init__(self, racetrack):
     """
