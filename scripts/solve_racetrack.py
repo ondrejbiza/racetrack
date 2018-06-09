@@ -11,7 +11,7 @@ def main(args):
 
   env = environment.RacetrackStrict(racetracks.TRACK_1)
   mc = agent.MonteCarlo(env, 1.0)
-    
+
   for i in range(TRAINING_EPISODES):
 
     mc.play_episode()
