@@ -3,6 +3,29 @@ import racetracks
 from environment import RacetrackStrict, Racetrack
 
 
+class TestRacetrack(unittest.TestCase):
+
+  def test_load_racetrack(self):
+    Racetrack(racetracks.TRACK_1)
+    Racetrack(racetracks.TRACK_2)
+
+  def test_check_out_of_bounds(self):
+
+    env = Racetrack(racetracks.TRACK_1)
+
+    positions = [(-1, 0), (0, -1), (-1, -1), (env.racetrack.shape[0], 0), (0, env.racetrack.shape[1]),
+                 (env.racetrack.shape[0], env.racetrack.shape[1])]
+    corrected_positions = [(0, 0), (0, 0), (0, 0), (env.racetrack.shape[0] - 1, 0), (0, env.racetrack.shape[1] - 1),
+                           (env.racetrack.shape[0] -1, env.racetrack.shape[1] - 1)]
+
+    for position, corrected_position in zip(positions, corrected_positions):
+
+      env.position = position
+      self.assertTrue(env.check_position_out_of_bounds())
+
+      env.correct_position_out_of_bounds()
+      self.assertEqual(env.position, corrected_position)
+
 class TestRacetrackStrict(unittest.TestCase):
 
   def test_load_racetrack(self):

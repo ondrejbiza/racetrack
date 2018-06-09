@@ -156,11 +156,10 @@ class Racetrack:
     :return:    None.
     """
 
-    self.position[0] = max(self.position[0], 0)
-    self.position[1] = max(self.position[1], 0)
+    x = min(max(self.position[0], 0), self.racetrack.shape[0] - 1)
+    y = min(max(self.position[1], 0), self.racetrack.shape[1] - 1)
 
-    self.position[0] = min(self.position[0], self.racetrack.shape[0])
-    self.position[1] = min(self.position[1], self.racetrack.shape[1])
+    self.position = (x, y)
 
   def check_position_grass(self):
     """
