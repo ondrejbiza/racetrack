@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 
 
 class Racetrack:
@@ -193,13 +194,34 @@ class Racetrack:
     self.velocity = (0, 0)
     self.done = False
 
-  def show_racetrack(self):
+  def show_racetrack(self, save_path=None, show_legend=True):
     """
-    Show current racetrack.
-    :return:    None.
+    Show the racetrack with labels.
+    https://stackoverflow.com/questions/25482876/how-to-add-legend-to-imshow-in-matplotlib
+    :param save_path:     Where to save the figure.
+    :param show_legend:   Show legend.
+    :return:              None.
     """
 
-    plt.imshow(self.racetrack)
+    im =  plt.imshow(self.racetrack)
+
+    plt.axis("off")
+
+    if show_legend:
+      values = np.unique(self.racetrack.ravel())
+      labels = {
+        self.START_VALUE: "start",
+        self.END_VALUE: "end",
+        self.TRACK_VALUE: "track",
+        self.GRASS_VALUE: "grass"
+      }
+      colors = [im.cmap(im.norm(value)) for value in values]
+      patches = [mpatches.Patch(color=colors[i], label=labels[values[i]]) for i in range(len(values))]
+      plt.legend(handles=patches, loc=4)
+
+    if save_path is not None:
+      plt.savefig(save_path)
+
     plt.show()
 
   def get_state(self):
@@ -357,8 +379,21 @@ class RacetrackStrict:
     self.done = False
 
   def show_racetrack(self):
+    """
+    https://stackoverflow.com/questions/25482876/how-to-add-legend-to-imshow-in-matplotlib
+    :return:      None.
+    """
 
-    plt.imshow(self.racetrack)
+    print("x")
+
+    im =  plt.imshow(self.racetrack)
+
+    values = np.unique(self.racetrack.ravel())
+    print(values)
+    colors = [im.cmap(im.norm(value)) for value in values]
+    patches = [mpatches.Patch(color=colors[i], label="Level {l}".format(l=values[i])) for i in range(len(values))]
+    plt.legend(handles=patches)
+
     plt.show()
 
   def get_state(self):

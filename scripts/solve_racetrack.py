@@ -3,7 +3,7 @@ import numpy as np
 import agent, environment, racetracks
 
 
-TRAINING_EPISODES = 100000
+TRAINING_EPISODES = 50000
 EVALUATION_EPISODES = 10
 EVALUATION_FREQUENCY = 100
 
@@ -41,7 +41,6 @@ def main(args):
     env.reset()
 
   mc.show_fraction_explored()
-  mc.show_max_action_values()
 
 
 if __name__ == "__main__":
