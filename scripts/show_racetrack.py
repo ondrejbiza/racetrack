@@ -7,6 +7,7 @@ def main(args):
   # validate input
   assert args.racetrack in racetracks.TRACKS.keys()
 
+  # show racetrack
   track = racetracks.TRACKS[args.racetrack]
 
   env = environment.Racetrack(track)
@@ -15,7 +16,7 @@ def main(args):
 
 if __name__ == "__main__":
 
-  parser = argparse.ArgumentParser()
+  parser = argparse.ArgumentParser("Show racetrack.")
 
   parser.add_argument("racetrack", help="{}, {} or {}".format(constants.RACETRACK_1, constants.RACETRACK_2,
                                                               constants.RACETRACK_3))

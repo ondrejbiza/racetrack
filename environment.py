@@ -2,14 +2,10 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import constants
 
 
 class Racetrack:
-
-  TRACK_VALUE = 0
-  GRASS_VALUE = 1
-  START_VALUE = 2
-  END_VALUE = 3
 
   STEP_REWARD = -1
   OUT_OF_BOUNDS_REWARD = -50
@@ -37,7 +33,7 @@ class Racetrack:
     """
 
     self.start_coordinates = []
-    x_coordinates, y_coordinates = np.where(self.racetrack == self.START_VALUE)
+    x_coordinates, y_coordinates = np.where(self.racetrack == constants.START_VALUE)
 
     for x, y in zip(x_coordinates, y_coordinates):
 
@@ -116,7 +112,7 @@ class Racetrack:
     elif self.position[1] >= self.racetrack.shape[1]:
       tmp_position = (self.position[0], self.racetrack.shape[1] - 1)
 
-    if self.racetrack[tmp_position] == self.END_VALUE:
+    if self.racetrack[tmp_position] == constants.END_VALUE:
       return True
     else:
       return False
@@ -161,7 +157,7 @@ class Racetrack:
     :return:    True if on grass, otherwise False.
     """
 
-    return self.racetrack[self.position] == self.GRASS_VALUE
+    return self.racetrack[self.position] == constants.GRASS_VALUE
 
   def correct_invalid_position(self, last_position):
     """
@@ -210,10 +206,10 @@ class Racetrack:
     if show_legend:
       values = np.unique(self.racetrack.ravel())
       labels = {
-        self.START_VALUE: "start",
-        self.END_VALUE: "end",
-        self.TRACK_VALUE: "track",
-        self.GRASS_VALUE: "grass"
+        constants.START_VALUE: "start",
+        constants.END_VALUE: "end",
+        constants.TRACK_VALUE: "track",
+        constants.GRASS_VALUE: "grass"
       }
       colors = [im.cmap(im.norm(value)) for value in values]
       patches = [mpatches.Patch(color=colors[i], label=labels[values[i]]) for i in range(len(values))]

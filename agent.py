@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import utils
+import matplotlib.patches as mpatches
+import constants, utils
 
 
 class MonteCarlo:
@@ -144,11 +145,13 @@ class MonteCarlo:
     plt.colorbar()
     plt.show()
 
-  def show_sequence(self, sequence):
+  def show_sequence(self, sequence, save_path=None, show_legend=True):
     """
     Show positions visited in a sequence.
-    :param sequence:    Sequence of tuples: (state, action, reward).
-    :return:            None.
+    :param sequence:        Sequence of tuples: (state, action, reward).
+    :param save_path:       Where to save the plot.
+    :param show_legend:     Show legend.
+    :return:                None.
     """
 
     track = self.env.racetrack.copy()
@@ -157,5 +160,24 @@ class MonteCarlo:
       state = item[0]
       track[state[0], state[1]] = 4
 
-    plt.imshow(track)
+    im = plt.imshow(track)
+
+    plt.axis("off")
+
+    if show_legend:
+      values = np.unique(track.ravel())
+      labels = {
+        constants.START_VALUE: "start",
+        constants.END_VALUE: "end",
+        constants.TRACK_VALUE: "track",
+        constants.GRASS_VALUE: "grass",
+        constants.AGENT_VALUE: "agent"
+      }
+      colors = [im.cmap(im.norm(value)) for value in values]
+      patches = [mpatches.Patch(color=colors[i], label=labels[values[i]]) for i in range(len(values))]
+      plt.legend(handles=patches, loc=4)
+
+    if save_path is not None:
+      plt.savefig(save_path)
+
     plt.show()
