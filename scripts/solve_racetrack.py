@@ -5,12 +5,12 @@ import agent, environment, racetracks
 
 TRAINING_EPISODES = 100000
 EVALUATION_EPISODES = 10
-EVALUATION_FREQUENCY = 10000
+EVALUATION_FREQUENCY = 100
 
 def main(args):
 
-  env = environment.RacetrackStrict(racetracks.TRACK_1)
-  mc = agent.MonteCarlo(env, 1.0)
+  env = environment.Racetrack(racetracks.TRACK_1)
+  mc = agent.MonteCarlo(env, 0.1)
 
   for i in range(TRAINING_EPISODES):
 

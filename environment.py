@@ -62,7 +62,7 @@ class Racetrack:
 
     # move car
     last_position = self.position
-    self.update_position()
+    self.update_position(self.velocity)
 
     # check if finished
     if self.check_finish():
@@ -70,31 +70,35 @@ class Racetrack:
       return self.STEP_REWARD
 
     # check for invalid position
-    invalid_position = True
+    invalid_position = False
 
-    if self.check_position_out_of_bounds():
+    if self.check_position_out_of_bounds() or self.check_position_grass():
       invalid_position = True
-      self.correct_position_out_of_bounds()
-
-    if self.check_position_grass():
-      invalid_position = True
-      self.correct_position_grass()
-
-    if self.position == last_position:
+      self.correct_invalid_position(last_position)
       self.correct_same_position()
+
+    # check if finished again
+    if self.check_finish():
+      self.done = True
+
+      if invalid_position:
+        return self.OUT_OF_BOUNDS_REWARD
+      else:
+        return self.STEP_REWARD
 
     if invalid_position:
       return self.OUT_OF_BOUNDS_REWARD
     else:
       return self.STEP_REWARD
 
-  def update_position(self):
+  def update_position(self, velocity):
     """
     Update position based on the velocity.
+    :param velocity:      Velocity.
     :return:    None.
     """
 
-    self.position = (self.position[0] - self.velocity[0], self.position[1] + self.velocity[1])
+    self.position = (self.position[0] - velocity[0], self.position[1] + velocity[1])
 
   def check_finish(self):
     """
@@ -150,17 +154,6 @@ class Racetrack:
     return self.position[0] < 0 or self.position[0] >= self.racetrack.shape[0] or self.position[1] < 0 or \
            self.position[1] >= self.racetrack.shape[1]
 
-  def correct_position_out_of_bounds(self):
-    """
-    Correct the position of the car if its outside the environment.
-    :return:    None.
-    """
-
-    x = min(max(self.position[0], 0), self.racetrack.shape[0] - 1)
-    y = min(max(self.position[1], 0), self.racetrack.shape[1] - 1)
-
-    self.position = (x, y)
-
   def check_position_grass(self):
     """
     Check if the race car is on grass.
@@ -169,13 +162,26 @@ class Racetrack:
 
     return self.racetrack[self.position] == self.GRASS_VALUE
 
-  def correct_position_grass(self):
+  def correct_invalid_position(self, last_position):
+    """
+    Correct position that is out of bounds or on grass.
+    :param last_position:       Last position.
+    :return:                    None.
+    """
 
-    for i in range(abs(self.velocity[0])):
-      pass
+    self.position = last_position
+    self.velocity = (0, 0)
 
   def correct_same_position(self):
-    pass
+    """
+    Move the car by at least one square to its target (so that each episode eventually finishes).
+    :return:    None.
+    """
+
+    self.update_position((1, 0))
+
+    if self.check_position_out_of_bounds() or self.check_position_grass():
+      self.update_position((-1, 1))
 
   def reset(self):
     """
@@ -188,11 +194,19 @@ class Racetrack:
     self.done = False
 
   def show_racetrack(self):
+    """
+    Show current racetrack.
+    :return:    None.
+    """
 
     plt.imshow(self.racetrack)
     plt.show()
 
   def get_state(self):
+    """
+    Get current state (position and velocity).
+    :return:    Current state.
+    """
 
     return self.position[0], self.position[1], self.velocity[0], self.velocity[1]
 

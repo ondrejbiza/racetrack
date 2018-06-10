@@ -9,22 +9,15 @@ class TestRacetrack(unittest.TestCase):
     Racetrack(racetracks.TRACK_1)
     Racetrack(racetracks.TRACK_2)
 
-  def test_check_out_of_bounds(self):
+  def test_eventual_finish(self):
 
     env = Racetrack(racetracks.TRACK_1)
 
-    positions = [(-1, 0), (0, -1), (-1, -1), (env.racetrack.shape[0], 0), (0, env.racetrack.shape[1]),
-                 (env.racetrack.shape[0], env.racetrack.shape[1])]
-    corrected_positions = [(0, 0), (0, 0), (0, 0), (env.racetrack.shape[0] - 1, 0), (0, env.racetrack.shape[1] - 1),
-                           (env.racetrack.shape[0] -1, env.racetrack.shape[1] - 1)]
+    for i in range(20):
+      env.reset()
 
-    for position, corrected_position in zip(positions, corrected_positions):
-
-      env.position = position
-      self.assertTrue(env.check_position_out_of_bounds())
-
-      env.correct_position_out_of_bounds()
-      self.assertEqual(env.position, corrected_position)
+      while not env.done:
+        env.act(0, 0)
 
 class TestRacetrackStrict(unittest.TestCase):
 
