@@ -3,7 +3,7 @@ import numpy as np
 import agent, constants, environment, racetracks
 
 
-TRAINING_EPISODES = 50000
+TRAINING_EPISODES = 100000
 EVALUATION_EPISODES = 100
 EVALUATION_FREQUENCY = 10000
 
@@ -14,7 +14,10 @@ def main(args):
 
   # create environment
   track = racetracks.TRACKS[args.racetrack]
-  env = environment.Racetrack(track)
+  if args.strict:
+    env = environment.RacetrackStrict(track)
+  else:
+    env = environment.Racetrack(track)
 
   # create agent
   mc = agent.MonteCarlo(env, 0.1)
@@ -69,6 +72,8 @@ if __name__ == "__main__":
   parser.add_argument("-f", "--format", default="svg", help="image format")
   parser.add_argument("--disable-legend", default=False, action="store_true",
                       help="disable legend in the racetrack image")
+
+  parser.add_argument("--strict", default=False, action="store_true", help="strict version of the environment")
 
   parsed = parser.parse_args()
   main(parsed)
