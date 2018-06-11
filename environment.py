@@ -10,14 +10,16 @@ class Racetrack:
   STEP_REWARD = -1
   OUT_OF_BOUNDS_REWARD = -50
 
-  def __init__(self, racetrack):
+  def __init__(self, racetrack, random_displacement_probability=0.5):
     """
     Initialize racetrack environment.
     The environment is described in Sutton and Barto's Reinforcement Learning: Introduction chapter 5.
-    :param racetrack:     Racetrack map.
+    :param racetrack:                           Racetrack map.
+    :param random_displacement_probability:     Probability of a random displacement by one square up or right.
     """
 
     self.racetrack = racetrack
+    self.random_displacement_probability = random_displacement_probability
     self.start_coordinates = None
     self.get_start_positions()
 
@@ -60,6 +62,7 @@ class Racetrack:
     # move car
     last_position = self.position
     self.update_position(self.velocity)
+    self.random_displacement()
 
     # check if finished
     if self.check_finish():
@@ -179,6 +182,18 @@ class Racetrack:
 
     if self.check_position_out_of_bounds() or self.check_position_grass():
       self.update_position((-1, 1))
+
+  def random_displacement(self):
+    """
+    Sometimes displace the car by one square up or right.
+    :return:    None.
+    """
+
+    if np.random.uniform(0, 1) < self.random_displacement_probability:
+      if np.random.choice([True, False]):
+        self.update_position((1, 0))
+      else:
+        self.update_position((0, 1))
 
   def reset(self):
     """
