@@ -231,7 +231,7 @@ class Racetrack:
       plt.legend(handles=patches, loc=4)
 
     if save_path is not None:
-      plt.savefig(save_path)
+      plt.savefig(save_path, bbox_inches="tight")
 
     plt.show()
 

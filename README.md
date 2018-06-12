@@ -1,22 +1,43 @@
 # Monte Carlo #
 
-
+This is an implementation of a Racetrack environment and a Monte Carlo agent described in Sutton and Barto's 
+Reinforcement Learning: An Introduction, Chapter 5. My agent can solve the problem posed in the book and I further 
+experiment with increasing the difficult of the problem by making the reward more sparse.
 
 ## Environment ##
 
-<p float="left">
-  <img src="images/track_1.svg" alt="track_1" width="220px"/>
-  <img src="images/track_2.svg" alt="track_2" width="220px"/>
-  <img src="images/track_3.svg" alt="track_3" width="220px"/>
-</p>
+The book recommends two environments (the 2nd and 3rd picture), I added one more for debugging.
+The third environment is bigger than the second one but is in fact easier to solve.
 
-## Original Problem ##
+The race car starts at the bottom and should move to the finish, which is in the top right corner, as fast as possible.
+
+<p float="left">
+  <img src="images/track_1.svg" alt="track_1" height="320px"  />
+  <img src="images/track_2.svg" alt="track_2" height="320px" />
+  <img src="images/track_3.svg" alt="track_3" height="320px" />
+</p>
 
 ```
 for track in track_1 track_2 track_3;
   do python -m scripts.show_racetrack "$track" --save-path "images/$track.svg";
 done
 ```
+
+## Original Problem ##
+
+In the original problem, the race car is penalized when it attempts to leave the track but the episode does not terminate.
+Instead, the car is placed back on the track and the environment makes sure that the car always moves by at least one square towards the finish.
+Moreover, the car can only move to the top and to the right of the race track.
+
+A Monte Carlo agent can successfully solve this task after 50000 training episode. I show three testing episodes
+for each of the environments below.
+
+<p float="left">
+  <img src="images/track_1.svg" alt="track_1" height="320px"  />
+  <img src="images/track_2.svg" alt="track_2" height="320px" />
+  <img src="images/track_3.svg" alt="track_3" height="320px" />
+</p>
+
 
 ![track_1_episode_1](images/track_1_episode_1.svg)
 ![track_1_episode_2](images/track_1_episode_2.svg)
