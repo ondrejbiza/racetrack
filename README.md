@@ -8,7 +8,9 @@
 
 ![track_1](images/track_1.svg)
 
-<img src="images/track_1.svg" alt="track_1"/>
+<img src="images/track_1.svg" alt="track_1" width="220px"/>
+<img src="images/track_2.svg" alt="track_2" width="220px"/>
+<img src="images/track_3.svg" alt="track_3" width="220px"/>
 
 ![track_2](images/track_2.svg)
 ![track_3](images/track_3.svg)
