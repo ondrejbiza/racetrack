@@ -2,7 +2,7 @@
 
 This is an implementation of a Racetrack environment and a Monte Carlo agent described in Sutton and Barto's 
 Reinforcement Learning: An Introduction, Chapter 5. My agent can solve the problem posed in the book and I further 
-experiment with increasing the difficult of the problem by making the reward more sparse.
+experiment with increasing the difficult of the environment.
 
 ## Environment ##
 
@@ -25,9 +25,9 @@ done
 
 ## Original Problem ##
 
-In the original problem, the race car is penalized when it attempts to leave the track but the episode does not terminate.
+In the original problem, the car is penalized when it attempts to leave the track but the episode does not terminate.
 Instead, the car is placed back on the track and the environment makes sure that the car always moves by at least one square towards the finish.
-Moreover, the car can only move to the top and to the right of the race track.
+Moreover, the car can only move to the top and to the right.
 
 A Monte Carlo agent can successfully solve this task after 50000 training episode. I show three testing episodes
 for each of the environments below.
