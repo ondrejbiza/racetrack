@@ -65,13 +65,21 @@ python -m scripts.solve_racetrack track_3 0.1 --save-path images/track_3_episode
 
 ## Strict Version ##
 
-![track_1_strict_episode_1](images/track_1_strict_episode_1.svg)
+<p float="left">
+  <img src="images/track_1_strict_episode_1.svg" alt="track_1_strict_episode_1" height="320px" />
+  <img src="images/track_1_strict_episode_2.svg" alt="track_1_strict_episode_2" height="320px" />
+  <img src="images/track_1_strict_episode_3.svg" alt="track_1_strict_episode_3" height="320px" />
+</p>
 
 ```
 python -m scripts.solve_racetrack track_1 0.1 --save-path images/track_1_strict_episode --strict
 ```
 
-![track_2_strict_episode_1](images/track_2_strict_episode_1.svg)
+<p float="left">
+  <img src="images/track_2_strict_episode_3.svg" alt="track_2_strict_episode_2" height="460px" />
+  <img src="images/track_2_strict_eps_0.5_episode_2.svg" alt="track_2_strict_eps_0.5_episode_2" height="460px" />
+  <img src="images/track_2_strict_eps_1.0_episode_2.svg" alt="track_2_strict_eps_1.0_episode_2" height="460px" />
+</p>
 
 ```
 python -m scripts.solve_racetrack track_2 0.1 --save-path images/track_2_strict_episode --strict
