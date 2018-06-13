@@ -1,4 +1,4 @@
-# Monte Carlo #
+# Racetrack with Monte Carlo #
 
 This is an implementation of the Racetrack environment and the Monte Carlo agent described in Sutton and Barto's 
 Reinforcement Learning: An Introduction, Chapter 5. My agent can solve the problem posed in the book and I further 
