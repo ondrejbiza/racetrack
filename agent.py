@@ -105,6 +105,11 @@ class MonteCarlo:
     return self.ACTION_TO_ACCELERATION[action]
 
   def explore(self, action):
+    """
+    Select a random action with probability epsilon.
+    :param action:    Exploitation action.
+    :return:          Exploration action.
+    """
 
     if np.random.uniform(0, 1) < self.epsilon:
       return np.random.randint(0, self.NUM_ACTIONS)
@@ -112,6 +117,10 @@ class MonteCarlo:
       return action
 
   def show_policy(self):
+    """
+    Plot policies for each velocity.
+    :return:
+    """
 
     for i in range(self.NUM_SPEEDS):
       for j in range(self.NUM_SPEEDS):
