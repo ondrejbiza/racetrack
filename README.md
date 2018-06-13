@@ -23,7 +23,9 @@ for track in track_1 track_2 track_3;
 done
 ```
 
-## Original Problem ##
+## Results ##
+
+### Original Problem ###
 
 In the original problem, the car is penalized when it attempts to leave the track but the episode does not terminate.
 Instead, the car is placed back on the track and the environment makes sure that the car always moves by at least one square towards the finish.
@@ -67,7 +69,7 @@ python -m scripts.solve_racetrack track_2 0.1 --save-path images/track_2_episode
 python -m scripts.solve_racetrack track_3 0.1 --save-path images/track_3_episode
 ```
 
-## Strict Version ##
+### Strict Version ###
 
 The strict version of the environment terminates the episode when the car attempts to leave the track. Unlike the original problem,
 the car almost never reaches the finish line. I disabled the random noise added to the car's position because
@@ -109,3 +111,12 @@ The trained agent usually reaches the finish line but the learned policy is not 
 ```
 python -m scripts.solve_racetrack track_3 0.1 --save-path images/track_3_strict_episode --strict
 ```
+
+## Setup ##
+
+Install Python3 and all Python packages listed in **requirements.txt**.
+
+## Usage ##
+
+The environments are implemented in **environment.py** and the agent in **agent.py**. You can replicate all the 
+plots by running the commands listed under them.
