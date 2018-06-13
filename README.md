@@ -35,7 +35,7 @@ To make it harder, the car's position is randomly shifted up or right by one squ
 A (tabular) Monte Carlo agent can successfully solve this task after 50000 training episode. I show three testing episodes
 for each of the environments below.
 
-The agent learn the drive in all three tracks. However, it sometimes gets penalized for driving off the track
+The agent learns to drive in all three tracks. However, it sometimes gets penalized for driving off the track
 because of the random noise added to the car's position.
 
 <p float="left">
@@ -72,10 +72,10 @@ python -m scripts.solve_racetrack track_3 0.1 --save-path images/track_3_episode
 ### Strict Version ###
 
 The strict version of the environment terminates the episode when the car attempts to leave the track. Unlike the original problem,
-the car almost never reaches the finish line. I disabled the random noise added to the car's position because
+the car rarely reaches the finish line when taking random actions. I disabled the random noise added to the car's position because
 the environment is already difficult to solve.
 
-The first tack is still easy to solve.
+The agent succeeds in the first racetrack.
 
 <p float="left">
   <img src="images/track_1_strict_episode_1.svg" alt="track_1_strict_episode_1" height="320px" />
@@ -103,7 +103,7 @@ python -m scripts.solve_racetrack track_2 1.0 --save-path images/track_2_strict_
 ```
 
 Even though the third track is bigger, it is much more likely that the agent will reach the finish by taking random actions.
-The trained agent usually reaches the finish line but the learned policy is not perfect, as you can see in the second picture.
+The trained agent usually wins but the learned policy is not perfect, as you can see in the second picture.
 
 ![track_3_strict_episode_1](images/track_3_strict_episode_1.svg)
 ![track_3_strict_episode_23](images/track_3_strict_episode_23.svg)
