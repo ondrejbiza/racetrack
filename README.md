@@ -33,31 +33,31 @@ A Monte Carlo agent can successfully solve this task after 50000 training episod
 for each of the environments below.
 
 <p float="left">
-  <img src="images/track_1.svg" alt="track_1" height="320px"  />
-  <img src="images/track_2.svg" alt="track_2" height="320px" />
-  <img src="images/track_3.svg" alt="track_3" height="320px" />
+  <img src="images/track_1_episode_1.svg" alt="track_1_episode_1" height="320px" />
+  <img src="images/track_1_episode_2.svg" alt="track_1_episode_2" height="320px" />
+  <img src="images/track_1_episode_3.svg" alt="track_1_episode_3" height="320px" />
 </p>
-
-
-![track_1_episode_1](images/track_1_episode_1.svg)
-![track_1_episode_2](images/track_1_episode_2.svg)
-![track_1_episode_3](images/track_1_episode_3.svg)
 
 ```
 python -m scripts.solve_racetrack track_1 0.1 --save-path images/track_1_episode
 ```
 
-![track_2_episode_1](images/track_2_episode_1.svg)
-![track_2_episode_3](images/track_2_episode_3.svg)
-![track_2_episode_5](images/track_2_episode_5.svg)
+<p float="left">
+  <img src="images/track_2_episode_1.svg" alt="track_2_episode_1" height="460px" />
+  <img src="images/track_2_episode_3.svg" alt="track_2_episode_3" height="460px" />
+  <img src="images/track_2_episode_5.svg" alt="track_2_episode_5" height="460px" />
+</p>
 
 ```
 python -m scripts.solve_racetrack track_2 0.1 --save-path images/track_2_episode
 ```
 
-![track_3_episode_1](images/track_3_episode_1.svg)
-![track_3_episode_9](images/track_3_episode_9.svg)
-![track_3_episode_19](images/track_3_episode_19.svg)
+<p float="left">
+  <img src="images/track_3_episode_1.svg" alt="track_3_episode_1" height="260px" />
+  <img src="images/track_3_episode_9.svg" alt="track_3_episode_9" height="260px" />
+  <img src="images/track_3_episode_19.svg" alt="track_3_episode_19" height="260px" />
+</p>
+
 
 ```
 python -m scripts.solve_racetrack track_3 0.1 --save-path images/track_3_episode
