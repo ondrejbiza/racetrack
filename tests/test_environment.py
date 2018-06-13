@@ -1,17 +1,17 @@
 import unittest
-import racetracks
+import constants, racetracks
 from environment import RacetrackStrict, Racetrack
 
 
 class TestRacetrack(unittest.TestCase):
 
   def test_load_racetrack(self):
-    Racetrack(racetracks.TRACK_1)
-    Racetrack(racetracks.TRACK_2)
+    Racetrack(racetracks.TRACKS[constants.RACETRACK_2])
+    Racetrack(racetracks.TRACKS[constants.RACETRACK_3])
 
   def test_eventual_finish(self):
 
-    env = Racetrack(racetracks.TRACK_1)
+    env = Racetrack(racetracks.TRACKS[constants.RACETRACK_2])
 
     for i in range(20):
       env.reset()
@@ -23,12 +23,12 @@ class TestRacetrackStrict(unittest.TestCase):
 
   def test_load_racetrack(self):
 
-    RacetrackStrict(racetracks.TRACK_1)
-    RacetrackStrict(racetracks.TRACK_2)
+    RacetrackStrict(racetracks.TRACKS[constants.RACETRACK_2])
+    RacetrackStrict(racetracks.TRACKS[constants.RACETRACK_3])
 
   def test_correct_route(self):
 
-    env = RacetrackStrict(racetracks.TRACK_1)
+    env = RacetrackStrict(racetracks.TRACKS[constants.RACETRACK_2])
 
     self.assertEqual(env.act(1, 0), RacetrackStrict.STEP_REWARD)
 
@@ -42,7 +42,7 @@ class TestRacetrackStrict(unittest.TestCase):
 
   def test_collision(self):
 
-    env = RacetrackStrict(racetracks.TRACK_1)
+    env = RacetrackStrict(racetracks.TRACKS[constants.RACETRACK_2])
 
     reward = env.act(1, 1)
     while reward != env.OUT_OF_BOUNDS_REWARD:
@@ -50,9 +50,9 @@ class TestRacetrackStrict(unittest.TestCase):
 
   def test_check_finish(self):
 
-    env = RacetrackStrict(racetracks.TRACK_1)
+    env = RacetrackStrict(racetracks.TRACKS[constants.RACETRACK_2])
 
     for i in range(5):
       for j in range(3):
-        env.position = (i, racetracks.TRACK_1.shape[1] + j)
+        env.position = (i, racetracks.TRACKS[constants.RACETRACK_2].shape[1] + j)
         self.assertEqual(env.check_finish(), True)
